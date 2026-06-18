@@ -9,6 +9,22 @@
 
 ---
 
+## 🖼️ 界面预览
+
+### 🚴 在 Strava 仪表盘上
+
+![Strava 仪表盘界面 1](png/on%20Strava%20Dashboard.png)
+
+![Strava 仪表盘界面 2](png/on%20Strava%20Dashboard%2002.png)
+
+### ⚠️ 不在 Strava 仪表盘上
+
+当用户不在 Strava 仪表盘页面时，扩展会显示提示：
+
+![未在 Strava 仪表盘](png/Not%20on%20Strava%20Dashboard.png)
+
+---
+
 ## 免责声明
 
 **重要声明：** 这是对原始 Strava QDOS Giver 扩展的非官方本地修改。本地化工作是在原始扩展的本地文件上完成的，仅供个人使用和社区共享。

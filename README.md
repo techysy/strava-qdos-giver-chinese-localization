@@ -9,6 +9,22 @@ This branch contains Simplified Chinese localization for the [Strava Quick Kudos
 
 ---
 
+## 🖼️ Interface Preview
+
+### 🚴 On Strava Dashboard
+
+![Strava Dashboard Interface 1](png/on%20Strava%20Dashboard.png)
+
+![Strava Dashboard Interface 2](png/on%20Strava%20Dashboard%2002.png)
+
+### ⚠️ Not on Strava Dashboard
+
+When user is not on the Strava Dashboard page, the extension shows a prompt:
+
+![Not on Strava Dashboard](png/Not%20on%20Strava%20Dashboard.png)
+
+---
+
 ## Disclaimer
 
 **Important Notice:** This is an unofficial local modification of the original Strava QDOS Giver extension. The localization work was done on the local files of the original extension for personal use and community benefit.
