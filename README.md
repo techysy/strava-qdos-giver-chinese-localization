@@ -4,10 +4,10 @@
 
 ## Project Description
 
-This branch contains Simplified Chinese localization for the [Strava Quick Kudos](https://github.com/jongoodey) extension.
+This branch contains Simplified Chinese localization for the Strava Quick Kudos extension.
 
 - **Original project**: https://github.com/jongoodey (by jongoodey)
-- **Original Chrome Web Store**: https://chromewebstore.google.com/detail/Strava%20QDOS%20Giver/belkkbpmghfdedngfkomlifeknfnacdi
+- **Original Chrome Web Store**: [Strava Quick Kudos](https://chromewebstore.google.com/detail/Strava%20QDOS%20Giver/belkkbpmghfdedngfkomlifeknfnacdi)
 
 ---
 
