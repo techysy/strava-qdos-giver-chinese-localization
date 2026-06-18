@@ -4,10 +4,10 @@
 
 ## 项目说明
 
-本分支包含 [Strava Quick Kudos](https://github.com/jongoodey) 扩展的简体中文（Simplified Chinese）本地化修改。
+本分支包含 Strava Quick Kudos 扩展的简体中文（Simplified Chinese）本地化修改。
 
 - **原始项目**: https://github.com/jongoodey (作者: jongoodey)
-- **原始 Chrome 应用商店**: https://chromewebstore.google.com/detail/Strava%20QDOS%20Giver/belkkbpmghfdedngfkomlifeknfnacdi
+- **原始 Chrome 应用商店**: [Strava Quick Kudos](https://chromewebstore.google.com/detail/Strava%20QDOS%20Giver/belkkbpmghfdedngfkomlifeknfnacdi)
 
 ---
 
