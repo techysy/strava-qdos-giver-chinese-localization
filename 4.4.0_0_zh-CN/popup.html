@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Strava 一键点赞</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="overlay"></div>
+
+  <div id="wrongPageBanner" class="wrong-page-banner" style="display: none;">
+    <div class="banner-icon">&#9888;</div>
+    <div class="banner-text">
+      <strong>未在 Strava 仪表盘</strong>
+      <p>此扩展仅在 Strava 仪表盘页面生效。</p>
+    </div>
+    <a href="#" id="goToStrava" class="banner-link">前往 Strava 仪表盘</a>
+  </div>
+
+  <div class="content" id="mainContent">
+    <h2>Strava 一键点赞</h2>
+
+    <div class="quick-kudo-section">
+      <div class="quick-kudo-title">
+        <span class="icon">&#9889;</span>
+        快速点赞全部
+      </div>
+      <button id="quickKudoButton">点赞所有活动</button>
+      <div class="time-filter-row">
+        <label for="timeFilter">时间范围:</label>
+        <select id="timeFilter">
+          <option value="24">最近24小时</option>
+          <option value="48">最近48小时</option>
+          <option value="168">最近7天</option>
+          <option value="0">全部可见</option>
+        </select>
+      </div>
+      <div class="quick-kudo-info">一键完成，无需滚动，快速点赞。</div>
+    </div>
+
+    <div id="status" class="status">准备好点赞。</div>
+
+    <div class="section-divider"><span>筛选器</span></div>
+
+    <div class="settings-section">
+      <div class="setting stacked">
+        <div class="setting-row">
+          <input type="checkbox" id="enableLocationFilter" name="enableLocationFilter">
+          <label for="enableLocationFilter">位置筛选</label>
+          <select id="locationMode">
+            <option value="allow">允许</option>
+            <option value="block">阻止</option>
+          </select>
+        </div>
+        <div class="location-picker">
+          <div class="location-picker-header">
+            <span class="location-picker-title">检测到的位置</span>
+            <button type="button" id="scanLocationsButton" class="scan-button">扫描动态</button>
+          </div>
+          <input type="search" id="locationSearch" class="location-search" placeholder="搜索位置..." autocomplete="off" />
+          <div id="locationList" class="location-list">
+            <div class="location-empty">点击"扫描动态"从当前动态列表获取位置。</div>
+          </div>
+          <div class="location-picker-footer">
+            <button type="button" id="locationSelectAll" class="link-button">全选</button>
+            <button type="button" id="locationSelectNone" class="link-button">清除</button>
+            <span class="location-count" id="locationCount"></span>
+          </div>
+        </div>
+        <input type="text" id="locationTerms" placeholder="自定义关键词（可选），如：北京" disabled>
+        <div class="hint">选择项和自定义关键词将合并。支持子字符串匹配，不区分大小写。</div>
+      </div>
+
+      <div class="setting stacked">
+        <div class="setting-row">
+          <input type="checkbox" id="enableTypeFilter" name="enableTypeFilter">
+          <label for="enableTypeFilter">活动类型筛选</label>
+        </div>
+        <input type="text" id="typeTerms" placeholder="例如：跑步, 骑行, 越野跑" disabled>
+        <div class="hint">逗号分隔。匹配活动图标标签。</div>
+      </div>
+    </div>
+
+    <div class="section-divider"><span>或自定义设置</span></div>
+
+    <button class="advanced-toggle" id="advancedToggle">
+      <span>高级选项</span>
+      <span class="arrow">&#9660;</span>
+    </button>
+
+    <div class="advanced-content" id="advancedContent">
+      <div class="slider-container">
+        <label for="speedSlider">点赞速度</label>
+        <input type="range" min="200" max="6000" value="1200" class="speed-slider" id="speedSlider">
+        <div class="speed-value" id="speedValue">速度: 1.2秒</div>
+        <label class="direction-label">
+          <input type="checkbox" id="directionToggle" class="direction-checkbox">
+          <span class="direction-text">从底部开始</span>
+        </label>
+      </div>
+
+      <button id="startKudos" class="button">开始自定义点赞</button>
+      <button id="stopKudos" class="button">停止点赞</button>
+
+      <div class="settings-section">
+        <div class="setting">
+          <input type="checkbox" id="autoSpeedToggle" name="autoSpeedToggle" checked>
+          <label for="autoSpeedToggle">自动速度（先快后慢）</label>
+        </div>
+
+        <div class="setting limit-setting">
+          <input type="checkbox" id="enableKudosLimit" name="enableKudosLimit">
+          <label for="enableKudosLimit">限制点赞数</label>
+          <input type="number" id="kudosLimitValue" min="1" max="1000" value="75" disabled>
+          <span class="limit-label">次</span>
+        </div>
+
+        <div class="setting reset-setting">
+          <button id="resetCounter" class="button reset-button">重置计数器</button>
+        </div>
+
+        <div class="setting reset-setting">
+          <button id="diagnoseButton" class="button diagnose-button" type="button">运行诊断</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="error" class="error">
+      请前往 <a href="https://www.strava.com/dashboard?num_entries=250" target="_blank">Strava 仪表盘</a>。
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

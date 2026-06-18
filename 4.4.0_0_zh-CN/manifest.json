@@ -1,0 +1,22 @@
+{
+   "action": {
+      "default_icon": {
+         "128": "images/icon128.png",
+         "16": "images/icon16.png",
+         "48": "images/icon48.png"
+      },
+      "default_popup": "popup.html"
+   },
+   "description": "在 Strava 上一键点赞，支持位置、时间和活动类型筛选。位置选择器、快速点赞全部、多轮捕获。",
+   "icons": {
+      "128": "images/icon128.png",
+      "16": "images/icon16.png",
+      "48": "images/icon48.png"
+   },
+   "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8PAzmud2vBVLYWhyTuYwKBA3eClafiFhr3AAkqPuzjiCVFMMUva95qcoeaK96BY7pR2aTJtdt/b1lPDC2YACsvVbZsSSqgSQRrAlJTWgHCGwqQpkw6kUctEVryoNuSVsokeC+Nb/mMGkBNUipomE5B0eNuQg5FOnGRConzuCoEMpZY5GcmcJRlCX4o93WsYglRqBaaXflQhK4dMGW3edbzu9BIes1aboHgfP+RTvh9O/5xcVF+MCMQbtMORfpTBHGmfblZtuLgfr3rPmnsKhCFJb5qjsItkoL716Z5IYPgH0sLeINMhfMNsGBEecz7gaQEniTfn2XZ14/7XjXnMQXQIDAQAB",
+   "manifest_version": 3,
+   "name": "Strava 一键点赞",
+   "permissions": [ "activeTab", "scripting", "notifications", "storage" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "4.4.0"
+}
