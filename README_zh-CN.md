@@ -1,5 +1,7 @@
 # Strava Quick Kudos - 简体中文本地化
 
+🌐 **语言**: [English](README.md) | [简体中文](README_zh-CN.md)
+
 ## 项目说明
 
 本分支包含 [Strava Quick Kudos](https://github.com/jongoodey) 扩展的简体中文（Simplified Chinese）本地化修改。

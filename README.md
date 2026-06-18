@@ -1,5 +1,7 @@
 # Strava Quick Kudos - Simplified Chinese Localization
 
+🌐 **Language**: [English](README.md) | [简体中文](README_zh-CN.md)
+
 ## Project Description
 
 This branch contains Simplified Chinese localization for the [Strava Quick Kudos](https://github.com/jongoodey) extension.
