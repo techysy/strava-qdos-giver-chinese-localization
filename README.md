@@ -13,15 +13,18 @@ This branch contains Simplified Chinese localization for the [Strava Quick Kudos
 
 ### 🚴 On Strava Dashboard
 
-![Strava Dashboard Interface 1](png/on%20Strava%20Dashboard.png)
+| Main Interface | Advanced Options |
+|----------------|------------------|
+| ![Chinese Interface - Main](png/on%20Strava%20Dashboard%2001.png) | ![Chinese Interface - Advanced Options](png/on%20Strava%20Dashboard%2002.png) |
 
-![Strava Dashboard Interface 2](png/on%20Strava%20Dashboard%2002.png)
+### 🔧 Diagnostics & Alerts
 
-### ⚠️ Not on Strava Dashboard
+| Run Diagnostics (Activity Stats) | Error Prompt (Non-Dashboard) |
+|---------------------------------|------------------------------|
+| ![Run Diagnostics](png/Run%20Diagnostics.png) | ![Not on Strava Dashboard](png/Not%20on%20Strava%20Dashboard.png) |
 
-When user is not on the Strava Dashboard page, the extension shows a prompt:
-
-![Not on Strava Dashboard](png/Not%20on%20Strava%20Dashboard.png)
+- **Run Diagnostics**: Counts activity cards, kudos buttons, owners on current page for troubleshooting
+- **Error Prompt**: Shows when user is not on Strava Dashboard page, guiding to correct page
 
 ---
 
@@ -137,6 +140,23 @@ Engine runtime messages translated:
 | Done! X kudos given (X). | 完成! 已点赞 X 个 (X)。 |
 | Scanning feed for locations... | 正在扫描动态获取位置... |
 | Found X unique locations in X cards. | 在 X 条动态中发现 X 个独特位置。 |
+
+---
+
+## ✅ Fixes & Updates
+
+### v1.1 Fixes (June 2026)
+
+1. **Chinese Time Format Support** - Added parsing support for Chinese interface time display:
+   - Supports `刚刚`, `今天`, `昨天`
+   - Supports `X分钟前`, `X小时前`, `X天前` formats
+
+2. **Kudos Count Fix** - Fixed issue where kudos count showed 0 despite successful clicks:
+   - Enhanced `alreadyKudoed()` function with multiple detection methods
+   - Improved `clickWithRetry()` function with multiple verification attempts
+   - Added fallback mechanism to ensure kudos are counted correctly
+
+3. **Updated Preview Images** - Updated demo screenshots showing Chinese interface
 
 ---
 

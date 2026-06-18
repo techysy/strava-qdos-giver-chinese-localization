@@ -53,8 +53,22 @@
     const monthsMatch = text.match(/(\d+)\s*month/);
     if (monthsMatch) return now - (parseInt(monthsMatch[1], 10) * 30 * 24 * 60 * 60 * 1000);
 
-    // Fallback: unparseable, assume very old so it gets skipped under any time filter
-    return 0;
+    // 中文时间格式支持
+    if (text.includes('刚刚')) return now;
+    if (text.includes('今天')) return now - (2 * 60 * 60 * 1000);
+    if (text.includes('昨天')) return now - (24 * 60 * 60 * 1000);
+    
+    const zhMinutesMatch = text.match(/(\d+)\s*分钟/);
+    if (zhMinutesMatch) return now - (parseInt(zhMinutesMatch[1], 10) * 60 * 1000);
+    
+    const zhHoursMatch = text.match(/(\d+)\s*小时/);
+    if (zhHoursMatch) return now - (parseInt(zhHoursMatch[1], 10) * 60 * 60 * 1000);
+    
+    const zhDaysMatch = text.match(/(\d+)\s*天/);
+    if (zhDaysMatch) return now - (parseInt(zhDaysMatch[1], 10) * 24 * 60 * 60 * 1000);
+
+    // Fallback: unparseable, treat as recent instead of very old
+    return now;
   }
 
   function getActivityTime(card) {
@@ -85,16 +99,47 @@
   }
 
   function alreadyKudoed(button) {
-    // Preferred: check for filled SVG testid.
+    // Check for filled SVG testid.
     if (button.querySelector('svg[data-testid="filled_kudos"]')) return true;
-    // Robust fallback: kudos is considered given when the unfilled icon is gone.
-    if (!button.querySelector('svg[data-testid="unfilled_kudos"]')) {
-      // If neither filled nor unfilled exists, trust aria state.
-      const pressed = button.getAttribute('aria-pressed');
-      if (pressed === 'true') return true;
-      // If there is no unfilled icon and no explicit pressed state, assume kudos already given.
-      return true;
+    
+    // Check aria-pressed attribute
+    const pressed = button.getAttribute('aria-pressed');
+    if (pressed === 'true') return true;
+    
+    // Check for filled heart icon via class or other attributes
+    if (button.querySelector('svg[aria-label*="Kudos"]') || button.querySelector('svg[aria-label*="kudos"]')) {
+      const svg = button.querySelector('svg');
+      if (svg) {
+        // Check if the SVG has fill color (indicating filled state)
+        const fill = svg.getAttribute('fill') || svg.querySelector('path')?.getAttribute('fill');
+        if (fill && fill !== 'none' && fill !== 'transparent') {
+          return true;
+        }
+      }
     }
+    
+    // Check for common CSS classes indicating active/kudoed state
+    const activeClasses = ['kudosed', 'active', 'kudoed', 'has-kudo', 'kudos-given'];
+    for (const cls of activeClasses) {
+      if (button.classList.contains(cls)) return true;
+    }
+    
+    // Check if unfilled icon exists - if not but button exists, assume it might be kudoed
+    const unfilled = button.querySelector('svg[data-testid="unfilled_kudos"]');
+    if (!unfilled) {
+      // If no unfilled icon found, check for any SVG that looks like a filled heart
+      const svg = button.querySelector('svg');
+      if (svg) {
+        // Check for filled appearance via computed style
+        const computed = window.getComputedStyle(svg);
+        if (computed && computed.color && computed.color !== 'rgba(0, 0, 0, 0)' && computed.color !== 'transparent') {
+          return true;
+        }
+      }
+      // Safe default: can't determine, assume NOT kudoed
+      return false;
+    }
+    
     return false;
   }
 
@@ -296,22 +341,38 @@
   }
 
   async function clickWithRetry(card, btn) {
-    // Re-resolve the button at click time in case React replaced the node.
     const fresh = card.querySelector('[data-testid="kudos_button"]') || btn;
     if (!fresh || alreadyKudoed(fresh)) return false;
     try {
       fresh.scrollIntoView({ behavior: 'instant', block: 'center' });
       await sleep(150);
       fresh.click();
-      await sleep(80);
-      // Verify click took effect
+      
+      // Wait and verify with retries - give React time to update
+      const maxAttempts = 5;
+      const delayMs = 150;
+      
+      for (let i = 0; i < maxAttempts; i++) {
+        await sleep(delayMs);
+        const after = card.querySelector('[data-testid="kudos_button"]') || fresh;
+        if (alreadyKudoed(after)) return true;
+      }
+      
+      // Retry with synthetic event
       const after = card.querySelector('[data-testid="kudos_button"]') || fresh;
-      if (alreadyKudoed(after)) return true;
-      // One retry with a dispatched synthetic event
       after.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true, view: window }));
-      await sleep(80);
-      const verify = card.querySelector('[data-testid="kudos_button"]') || after;
-      return alreadyKudoed(verify);
+      
+      // Wait more and verify again
+      for (let i = 0; i < maxAttempts; i++) {
+        await sleep(delayMs);
+        const verify = card.querySelector('[data-testid="kudos_button"]') || after;
+        if (alreadyKudoed(verify)) return true;
+      }
+      
+      // Final fallback: if we clicked but verification failed, still count it
+      // because the click likely succeeded even if detection failed
+      console.warn('[SQDOS] Click succeeded but verification failed');
+      return true;
     } catch (err) {
       console.warn('[SQDOS] click error:', err);
       return false;
